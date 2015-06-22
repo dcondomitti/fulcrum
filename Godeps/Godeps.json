@@ -1,0 +1,18 @@
+{
+	"ImportPath": "github.com/dcondomitti/fulcrum",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/ianschenck/envflag",
+			"Rev": "9111d830d133f952887a936367fb0211c3134f0d"
+		},
+		{
+			"ImportPath": "github.com/julienschmidt/httprouter",
+			"Rev": "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
+		},
+		{
+			"ImportPath": "github.com/salsita/go-pivotaltracker/v5/pivotal",
+			"Rev": "06c120eb050c14517c7928d0e8009a95870bf868"
+		}
+	]
+}
