@@ -138,8 +138,8 @@ func (service *StoryService) List(projectId int, filter string) ([]*Story, *http
 	return stories, resp, err
 }
 
-func (service *StoryService) Get(projectId, storyId int) (*Story, *http.Response, error) {
-	u := fmt.Sprintf("projects/%v/stories/%v", projectId, storyId)
+func (service *StoryService) Get(storyId int) (*Story, *http.Response, error) {
+	u := fmt.Sprintf("stories/%v", storyId)
 	req, err := service.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
