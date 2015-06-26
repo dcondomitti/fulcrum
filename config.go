@@ -27,8 +27,8 @@ func (c *Config) ListenString() string {
 
 var (
 	pivotalAPIKey      = envflag.String("PIVOTAL_API_KEY", "", "pivotal tracker api key")
-	listenHost         = envflag.String("LISTEN_HOST", DEFAULT_LISTEN_HOST, fmt.Sprintf("interface to listen on, default: %v", DEFAULT_LISTEN_HOST))
-	listenPort         = envflag.Int("LISTEN_PORT", DEFAULT_LISTEN_PORT, fmt.Sprintf("port to listen on, default: %v", DEFAULT_LISTEN_PORT))
+	listenHost         = envflag.String("HOST", DEFAULT_LISTEN_HOST, fmt.Sprintf("interface to listen on, default: %v", DEFAULT_LISTEN_HOST))
+	listenPort         = envflag.Int("PORT", DEFAULT_LISTEN_PORT, fmt.Sprintf("port to listen on, default: %v", DEFAULT_LISTEN_PORT))
 	tlsCertificatePath = envflag.String("TLS_CERTIFICATE_PATH", DEFAULT_TLS_CERTIFICATE_PATH, fmt.Sprintf("path to the x509 certificate, default: %v", DEFAULT_TLS_CERTIFICATE_PATH))
 	tlsKeyPath         = envflag.String("TLS_KEY_PATH", DEFAULT_TLS_KEY_PATH, fmt.Sprintf("path to x509 private key, default: %v", DEFAULT_TLS_KEY_PATH))
 )

@@ -42,7 +42,6 @@ func (sh *StoryHandler) Get(s string) (*pivotal.Story, error) {
 		log.Print(err)
 		return &pivotal.Story{}, err
 	}
-	log.Print(story)
 
 	return story, nil
 }
