@@ -29,12 +29,31 @@ func main() {
 	router.GET("/stories/:story_id", s.Show)
 	router.GET("/story/show/:story_id", s.Show)
 
-	log.Printf("Starting listener on %s", config.ListenString())
-	log.Printf("Using certificate %s (%s)", config.TLSCertificatePath, config.TLSKeyPath)
-
 	httpTarget := middleware.JsonContentType(router)
 
-	err := http.ListenAndServe(config.ListenString(), httpTarget)
+	if config.UseTLS {
+		listenTLS(config, httpTarget)
+	} else {
+		listen(config, httpTarget)
+	}
+
+}
+
+func listenTLS(c Config, h http.Handler) {
+	if c.TLSCertificatePath == "" || c.TLSKeyPath == "" {
+		log.Fatal("TLS_CERTIFICATE_PATH and TLS_KEY_PATH are required if USE_TLS is enabled")
+	}
+	log.Printf("Using certificate %s (%s)", c.TLSCertificatePath, c.TLSKeyPath)
+	log.Printf("Starting TLS listener on %s", c.ListenString())
+	err := http.ListenAndServeTLS(c.ListenString(), c.TLSCertificatePath, c.TLSKeyPath, h)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func listen(c Config, h http.Handler) {
+	log.Printf("Starting listener on %s", c.ListenString())
+	err := http.ListenAndServe(c.ListenString(), h)
 	if err != nil {
 		panic(err)
 	}
