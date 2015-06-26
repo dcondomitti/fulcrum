@@ -18,11 +18,11 @@ type SlackPayload struct {
 }
 
 type slackMessage struct {
-	Fallback    string              `json:"fallback"`
-	Title       string              `json:"title"`
-	TitleLink   string              `json:"title_link"`
-	Description string              `json:"description"`
-	Fields      []slackMessageField `json:"fields"`
+	Fallback  string              `json:"fallback"`
+	Title     string              `json:"title"`
+	TitleLink string              `json:"title_link"`
+	Text      string              `json:"text"`
+	Fields    []slackMessageField `json:"fields"`
 }
 
 type slackMessageField struct {
@@ -36,7 +36,6 @@ func NewSlackPayload(c *Config, s *pivotal.Story) SlackPayload {
 		Attachments: extractAttachments(s),
 		Username:    c.Username,
 		IconEmoji:   c.IconEmoji,
-		Description: s.Description,
 	}
 }
 
@@ -47,6 +46,7 @@ func extractAttachments(s *pivotal.Story) []slackMessage {
 			Title:     s.Name,
 			TitleLink: s.URL,
 			Fields:    extractFields(s),
+			Text:      s.Description,
 		},
 	}
 }
