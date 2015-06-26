@@ -29,12 +29,12 @@ func main() {
 	router.GET("/stories/:story_id", s.Show)
 	router.GET("/story/show/:story_id", s.Show)
 
-	log.Printf("Starting TLS listener on %s", config.ListenString())
+	log.Printf("Starting listener on %s", config.ListenString())
 	log.Printf("Using certificate %s (%s)", config.TLSCertificatePath, config.TLSKeyPath)
 
 	httpTarget := middleware.JsonContentType(router)
 
-	err := http.ListenAndServeTLS(config.ListenString(), config.TLSCertificatePath, config.TLSKeyPath, httpTarget)
+	err := http.ListenAndServe(config.ListenString(), httpTarget)
 	if err != nil {
 		panic(err)
 	}
