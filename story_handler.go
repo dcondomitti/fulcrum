@@ -22,8 +22,13 @@ type Response struct {
 func (sh StoryHandler) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	s, err := sh.Get(params.ByName("story_id"))
 
-	err = json.NewEncoder(w).Encode(s)
 	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	sp := NewSlackMessage(s)
+
+	if err = json.NewEncoder(w).Encode(&sp); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
