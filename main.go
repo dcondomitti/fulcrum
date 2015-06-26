@@ -10,9 +10,11 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+var config Config
+
 func main() {
 	log.Print("Starting fulcrum")
-	config := parseFlags()
+	config = parseFlags()
 
 	if config.PivotalAPIKey == "" {
 		log.Fatal("Pivotal Tracker API key not present")
@@ -28,6 +30,10 @@ func main() {
 	router.GET("/projects/:project_id/stories/:story_id", s.Show)
 	router.GET("/stories/:story_id", s.Show)
 	router.GET("/story/show/:story_id", s.Show)
+
+	router.POST("/projects/:project_id/stories/:story_id", s.Show)
+	router.POST("/stories/:story_id", s.Show)
+	router.POST("/story/show/:story_id", s.Show)
 
 	httpTarget := middleware.JsonContentType(router)
 

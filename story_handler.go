@@ -20,17 +20,29 @@ type Response struct {
 }
 
 func (sh StoryHandler) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	s, err := sh.Get(params.ByName("story_id"))
 
+	s, err := sh.Get(params.ByName("story_id"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	sp := NewSlackMessage(s)
+	sp := NewSlackPayload(&config, s)
 
-	if err = json.NewEncoder(w).Encode(&sp); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+	if r.Method == "POST" {
+		if room := r.URL.Query().Get("room"); room != "" {
+			err = sp.SendMessage(config.SlackWebhookURL, room)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		} else {
+			http.Error(w, "room parameter required", http.StatusBadRequest)
+		}
+	} else {
+		if err = json.NewEncoder(w).Encode(&sp); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
 	}
+
 }
 
 func (sh *StoryHandler) Get(s string) (*pivotal.Story, error) {
