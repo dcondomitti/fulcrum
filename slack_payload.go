@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -52,9 +53,10 @@ func extractAttachments(s *pivotal.Story) []slackMessage {
 }
 
 func extractFields(s *pivotal.Story) []slackMessageField {
+
 	return []slackMessageField{
-		slackMessageField{Title: "Current State", Value: s.State, Short: true},
-		slackMessageField{Title: "Estimate", Value: strconv.FormatFloat(*s.Estimate, 'g', 1, 64), Short: true},
+		slackMessageField{Title: "State", Value: s.State, Short: true},
+		slackMessageField{Title: "Estimate", Value: extractEstimate(s), Short: true},
 		slackMessageField{Title: "Kind", Value: s.Kind, Short: true},
 		slackMessageField{Title: "Project", Value: strconv.Itoa(s.ProjectId), Short: true},
 	}
@@ -84,4 +86,13 @@ func (sp SlackPayload) Encode() (string, error) {
 		return "", err
 	}
 	return string(b), nil
+}
+
+func extractEstimate(s *pivotal.Story) string {
+	e := s.Estimate
+	if e != nil {
+		return fmt.Sprintf("%s points", strconv.FormatFloat(*s.Estimate, 'g', 1, 64))
+	}
+
+	return "n/a"
 }
