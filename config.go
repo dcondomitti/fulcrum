@@ -39,7 +39,7 @@ var (
 	slackWebhookURL     = envflag.String("SLACK_WEBHOOK_URL", "", "slack incoming webhook url")
 	tlsCertificatePath  = envflag.String("TLS_CERTIFICATE_PATH", DEFAULT_TLS_CERTIFICATE_PATH, fmt.Sprintf("path to the x509 certificate, default: %v", DEFAULT_TLS_CERTIFICATE_PATH))
 	tlsKeyPath          = envflag.String("TLS_KEY_PATH", DEFAULT_TLS_KEY_PATH, fmt.Sprintf("path to x509 private key, default: %v", DEFAULT_TLS_KEY_PATH))
-	username            = envflag.String("USERNAME", "povatal trunker", "username to send notifications from")
+	username            = envflag.String("USERNAME", "Pivotal Tracker", "username to send notifications from")
 	useTLS              = envflag.Bool("USE_TLS", false, "enable TLS listener, requires TLS_CERTIFICATE_PATH, TLS_PRIVATE_KEY_PATH")
 )
 
