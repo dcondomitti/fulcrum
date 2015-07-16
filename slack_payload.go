@@ -22,7 +22,6 @@ type slackMessage struct {
 	Fallback  string              `json:"fallback"`
 	Title     string              `json:"title"`
 	TitleLink string              `json:"title_link"`
-	Text      string              `json:"text"`
 	Fields    []slackMessageField `json:"fields"`
 }
 
@@ -47,7 +46,6 @@ func extractAttachments(s *pivotal.Story) []slackMessage {
 			Title:     s.Name,
 			TitleLink: s.URL,
 			Fields:    extractFields(s),
-			Text:      s.Description,
 		},
 	}
 }
