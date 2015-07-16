@@ -57,8 +57,6 @@ func extractFields(s *pivotal.Story) []slackMessageField {
 	return []slackMessageField{
 		slackMessageField{Title: "State", Value: s.State, Short: true},
 		slackMessageField{Title: "Estimate", Value: extractEstimate(s), Short: true},
-		slackMessageField{Title: "Kind", Value: s.Kind, Short: true},
-		slackMessageField{Title: "Project", Value: strconv.Itoa(s.ProjectId), Short: true},
 	}
 }
 
