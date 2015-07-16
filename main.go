@@ -28,10 +28,12 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/projects/:project_id/stories/:story_id", s.Show)
+	router.GET("/n/projects/:project_id/stories/:story_id", s.Show)
 	router.GET("/stories/:story_id", s.Show)
 	router.GET("/story/show/:story_id", s.Show)
 
 	router.POST("/projects/:project_id/stories/:story_id", s.Show)
+	router.POST("/n/projects/:project_id/stories/:story_id", s.Show)
 	router.POST("/stories/:story_id", s.Show)
 	router.POST("/story/show/:story_id", s.Show)
 
