@@ -35,7 +35,7 @@ func main() {
 	router.POST("/stories/:story_id", s.Show)
 	router.POST("/story/show/:story_id", s.Show)
 
-	httpTarget := middleware.JsonContentType(router)
+	httpTarget := middleware.Authentication(config.AuthenticationToken, middleware.JsonContentType(router))
 
 	if config.UseTLS {
 		listenTLS(config, httpTarget)

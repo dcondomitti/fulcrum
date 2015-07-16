@@ -23,7 +23,8 @@ func (sh StoryHandler) Show(w http.ResponseWriter, r *http.Request, params httpr
 
 	s, err := sh.Get(params.ByName("story_id"))
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.NotFound(w, r)
+		return
 	}
 
 	sp := NewSlackPayload(&config, s)
